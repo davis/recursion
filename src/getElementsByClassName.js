@@ -6,37 +6,40 @@
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function (className) {
 
-// setting parent as document.body, children as the nodelist childNodes
-	var results = [];
+// initializing results array
+    var results = [];
 
-	var recursive = function(parent) {
-		var children = parent.childNodes;
-		for(var i = 0; i < children.length; i++) {
-			if(children[i].classList && children[i].classList.contains(className)) {
-				results.push(children[i]);
-			}
-			if(children[i].hasChildNodes) {
-				for(var j = 0; j < children[i].childNodes.length; j++) {
-					recursive(children[i]);
-				}
-			}
-		}
-	}
+// meat of the function
+    var recursive = function(parent) {
+        var children = parent.childNodes;
+        for(var i = 0; i < children.length; i++) {
+          var child = children[i];
+            if(child.classList && child.classList.contains(className)) {  // child has a classList && classList contains className
+                results.push(child);
+            }
+            if(child.hasChildNodes) { // if child has more children, run recursive on each of the children
+                for(var j = 0; j < child.childNodes.length; j++) {
+                    recursive(child);
+                }
+            }
+        }
+    }
 
-	recursive(document.body);
+// call the function on document.body
+    recursive(document.body);
 
 // some logging
-	console.log(results);
-	console.log(document.getElementsByClassName(className));
-	console.log("-----")
+    console.log(results);
+    console.log(document.getElementsByClassName(className));
+    console.log("-----")
 
-
-	return results;
+//? it irks me that results returns an array when the native function returns a live nodeList...
+    return results;
 };
 
 
 /* 
-	//creating a node I can use later to return a nodelist
-		var myNode = document.createElement('results');
-		var results = myNode.childNodes;
+    //creating a node I can use later to return a nodelist
+        var myNode = document.createElement('results');
+        var results = myNode.childNodes;
 */
