@@ -5,13 +5,14 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function (className) {
-	var results = [];
-	for(i = 0; i < document.body.childNodes.length; i++) {
-			if(document.body.childNodes[i].classList)
-				if(document.body.childNodes[i].classList.contains(className)) {
-				console.log(document.body.childNodes[i] + i);
-				results.push(document.body.childNodes[i]);
+	var results;
+	for(var i = 0; i < document.body.childNodes.length; i++) {
+		if(document.body.childNodes[i].classList && document.body.childNodes[i].classList.contains(className)) {
+			console.log(document.body.childNodes[i]);
 		}
 	}
-	return results;
+
+	// console.log(results);
+	console.log(document.getElementsByClassName(className));
+	console.log("-----")
 };
