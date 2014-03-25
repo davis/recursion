@@ -15,12 +15,17 @@ var getElementsByClassName = function (className) {
 			if(children[i].classList && children[i].classList.contains(className)) {
 				results.push(children[i]);
 			}
+			if(children[i].hasChildNodes) {
+				for(var j = 0; j < children[i].childNodes.length; j++) {
+					recursive(children[i]);
+				}
+			}
 		}
 	}
 
-// some logging
 	recursive(document.body);
 
+// some logging
 	console.log(results);
 	console.log(document.getElementsByClassName(className));
 	console.log("-----")
