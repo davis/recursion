@@ -5,14 +5,33 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function (className) {
-	var results;
-	for(var i = 0; i < document.body.childNodes.length; i++) {
-		if(document.body.childNodes[i].classList && document.body.childNodes[i].classList.contains(className)) {
-			console.log(document.body.childNodes[i]);
+
+// setting parent as document.body, children as the nodelist childNodes
+	var results = [];
+
+	var recursive = function(parent) {
+		var children = parent.childNodes;
+		for(var i = 0; i < children.length; i++) {
+			if(children[i].classList && children[i].classList.contains(className)) {
+				results.push(children[i]);
+			}
 		}
 	}
 
-	// console.log(results);
+// some logging
+	recursive(document.body);
+
+	console.log(results);
 	console.log(document.getElementsByClassName(className));
 	console.log("-----")
+
+
+	return results;
 };
+
+
+/* 
+	//creating a node I can use later to return a nodelist
+		var myNode = document.createElement('results');
+		var results = myNode.childNodes;
+*/
